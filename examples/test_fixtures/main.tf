@@ -47,9 +47,12 @@ module "alb" {
   vpc_id                   = "${module.vpc.vpc_id}"
   subnets                  = "${module.vpc.public_subnets}"
   certificate_arn          = "${aws_iam_server_certificate.fixture_cert.arn}"
+  alb_protocols            = ["HTTPS"]
   health_check_path        = "/"
-  log_bucket               = "logs-${var.region}-${data.aws_caller_identity.fixtures.account_id}"
-  log_prefix               = "${var.log_prefix}"
+  create_log_bucket        = true
+  enable_logging           = true
+  log_bucket_name          = "logs-${var.region}-${data.aws_caller_identity.fixtures.account_id}"
+  log_location_prefix      = "${var.log_location_prefix}"
   force_destroy_log_bucket = true
 
   tags {

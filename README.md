@@ -32,19 +32,22 @@ For an example of using ALB with ECS look no further than the [hashicorp example
 [Resources](https://registry.terraform.io/modules/terraform-aws-modules/alb/aws?tab=resources), [inputs](https://registry.terraform.io/modules/terraform-aws-modules/alb/aws?tab=inputs), and [outputs](https://registry.terraform.io/modules/terraform-aws-modules/alb/aws?tab=outputs) documented in the terraform registry.
 
 ## Usage example
-A full example leveraging other community modules is contained in the [examples/test_fixtures directory](examples/test_fixtures). Here's the gist of using it via the Terraform registry:
+A full example leveraging other community modules is contained in the [examples/test_fixtures directory](https://github.com/terraform-aws-modules/terraform-aws-alb/tree/master/examples/test_fixtures). Here's the gist of using it via the Terraform registry:
 ```
 module "alb" {
-  source              = "terraform-aws-modules/alb/aws"
-  alb_name            = "my-alb"
-  region              = "us-east-2"
-  alb_security_groups = ["sg-edcd9784", "sg-edcd9785"]
-  vpc_id              = "vpc-abcde012"
-  subnets             = ["subnet-abcde012", "subnet-bcde012a"]
-  certificate_arn     = "arn:aws:iam::123456789012:server-certificate/test_cert-123456789012"
-  log_bucket          = "logs-us-east-2-123456789012"
-  log_prefix          = "my-alb-logs"
-  health_check_path   = "/"
+  source                        = "terraform-aws-modules/alb/aws"
+  alb_name                      = "my-alb"
+  region                        = "us-east-2"
+  alb_security_groups           = ["sg-edcd9784", "sg-edcd9785"]
+  vpc_id                        = "vpc-abcde012"
+  subnets                       = ["subnet-abcde012", "subnet-bcde012a"]
+  alb_protocols                 = ["HTTPS"]
+  certificate_arn               = "arn:aws:iam::123456789012:server-certificate/test_cert-123456789012"
+  create_log_bucket             = true
+  enable_logging                = true
+  log_bucket_name               = "logs-us-east-2-123456789012"
+  log_location_prefix           = "my-alb-logs"
+  health_check_path             = "/"
 
   tags {
     "Terraform" = "true"
@@ -57,7 +60,7 @@ module "alb" {
 
 ## Testing
 This module has been packaged with [awspec](https://github.com/k1LoW/awspec) tests through test kitchen. To run them:
-1. Install [rvm](https://rvm.io/rvm/install) and the ruby version specified in the [Gemfile](Gemfile).
+1. Install [rvm](https://rvm.io/rvm/install) and the ruby version specified in the [Gemfile](https://github.com/terraform-aws-modules/terraform-aws-alb/tree/master/Gemfile).
 2. Install bundler and the gems from our Gemfile:
 ```
 gem install bundler; bundle install
@@ -79,13 +82,14 @@ individual change made. These are the steps:
 
 ## IAM Permissions
 Testing and using this repo requires a minimum set of IAM permissions. Test permissions
-are listed in the [test_fixtures README](examples/test_fixtures/README.md).
+are listed in the [test_fixtures README](https://github.com/terraform-aws-modules/terraform-aws-alb/tree/master/examples/test_fixtures/README.md).
 
 ## Change log
-The [changelog](CHANGELOG.md) captures all important release notes.
+The [changelog](https://github.com/terraform-aws-modules/terraform-aws-alb/tree/master/CHANGELOG.md) captures all important release notes.
 
 ## Authors
 Created and maintained by [Brandon O'Connor](https://github.com/brandoconnor) - brandon@atscale.run.
+Many thanks to [the contributers listed here](https://github.com/terraform-aws-modules/terraform-aws-alb/graphs/contributors)!
 
 ## License
-MIT Licensed. See [LICENSE](LICENSE) for full details.
+MIT Licensed. See [LICENSE](https://github.com/terraform-aws-modules/terraform-aws-alb/tree/master/LICENSE) for full details.
